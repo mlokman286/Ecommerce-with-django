@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Home | E-Shopper</title>
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="static" rel="stylesheet">
+    <link href="{% static "css/prettyPhoto.css" %}" rel="stylesheet">
+    <link href="{% static "css/price-range.css" %}" rel="stylesheet">
+    <link href="{% static "css/animate.css" %}" rel="stylesheet">
+	<link href="{% static "css/main.css" %}" rel="stylesheet">
+	<link href="{% static "css/responsive.css" %}" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="{% static "images/ico/favicon.ico" %}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static "images/ico/apple-touch-icon-144-precomposed.png" %}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static "images/ico/apple-touch-icon-114-precomposed.png" %}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static "images/ico/apple-touch-icon-72-precomposed.png" %}">
+    <link rel="apple-touch-icon-precomposed" href="{% static "images/ico/apple-touch-icon-57-precomposed.png" %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head><!--/head-->
+
+<body>
+    {% include "include/header.html" %}
+
+    {% block body %}{% endblock body %}
+
+    {% include "include/footer.html" %}
+    
+    {% comment %} scripts {% endcomment %}
+    <script src="{% static "js/jquery.js" %}"></script>
+	<script src="{% static "js/bootstrap.min.js" %}"></script>
+	<script src="{% static "js/jquery.scrollUp.min.js" %}"></script>
+	<script src="{% static "js/price-range.js" %}"></script>
+    <script src="{% static "js/jquery.prettyPhoto.js" %}"></script>
+    <script src="{% static "js/main.js" %}"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+{% extends "master.html" %}
+{% load static %}
+{% load cart_tag %}
+{% block body %}
+<section id="cart_items">
+	<div class="container">
+		<div class="breadcrumbs">
+			<ol class="breadcrumb">
+			  <li><a href="{% url "home" %}">Home</a></li>
+			  <li class="active">Shopping Cart</li>
+			</ol>
+		</div>
+		<div class="table-responsive cart_info">
+			<table class="table table-condensed table-hover ">
+				<thead>
+					<tr class="cart_menu">
+						<td class="image">Item Picture</td>
+						<td class="description">Item Details</td>
+						<td class="price">Price</td>
+						<td class="quantity">Quantity</td>
+						<td class="total">Total</td>
+						<td><a href="{% url 'cart_clear' %}">
+							<i class="fa-solid fa-trash-can fa-bounce fa-lg" style="color: #ff0a0a;"></i>
+						</a></td>
+					</tr>
+				</thead>
+				<tbody>
+					{% for key,value in request.session.cart.items %}
+					<tr>
+						<td class="cart_product">
+							<a href=""><img src="{{value.image}}" style='width:100px' alt=""></a>
+						</td>
+						<td class="cart_description">
+							<h5><a href="">{{value.name}}</a></h5>
+							<p>Web ID: {{value.product_id}}</p>
+						</td>
+						<td class="cart_price">
+							<p>{{value.price}} BDT</p>
+						</td>
+						<td class="cart_quantity">
+							<div class="cart_quantity_button">
+								<a class="cart_quantity_up" href="{% url 'item_increment' value.product_id %}"> + </a>
+								<input class="cart_quantity_input" type="text" name="quantity" value="{{value.quantity}}" autocomplete="off" size="2">
+								<a class="cart_quantity_down" href="{% url 'item_decrement' value.product_id %}"> - </a>
+							</div>
+						</td>
+						<td class="cart_total">
+							<p class="cart_total_price">{{value.price|multiply:value.quantity}} BDT</p>
+						</td>
+						<td class="cart_delete">
+							<a class="cart_quantity_delete" href="{% url "item_clear" value.product_id %}"><i class="fa-solid fa-circle-xmark fa-fade fa-lg" style="color: #ff0000;"></i></a>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+				<tfoot>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>
+							<hr><h3>Total</h3>
+						</td>
+						<td>
+							<hr><h3>{{cart_total_amount}} BDT</h3>
+						</td>
+						<td></td>
+					</tr>
+				</tfoot>
+			</table>
+			<button style='float: right;' type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Checkout</button>
+		</div>
+	</div>
+</section> 
+<!--/#cart_items-->
+{% comment %} modal {% endcomment %}
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action='checkout' method='post'>
+			{% csrf_token %}
+          <div class="form-group">
+            <label for="recipient-phone" class="col-form-label">Phone</label>
+            <input type="number" name='phone' class="form-control" id="recipient-phone">
+          </div>
+          
+          <div class="form-group">
+            <label for="address-text" class="col-form-label">Address:</label>
+            <textarea name='address' class="form-control" id="address-text"></textarea>
+          </div>
+
+		  <div class="form-group">
+            <label for="recipient-pincode" class="col-form-label">Pin-Code</label>
+            <input type="number" name='pincode' class="form-control" id="recipient-pincode">
+          </div>
+
+		  <div class="modal-footer">
+     		<button type="submit" class="btn btn-success">Checkout</button>
+     	  </div>
+		  
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+{% endblock body %}
